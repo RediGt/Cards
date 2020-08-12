@@ -17,6 +17,7 @@ namespace Cards
         //private List<string> fileNames = new List<string>();
         private string[] fileNames = null;
         private Random rand = new Random();
+        private List<PictureBox> cardImages = new List<PictureBox>();
         
         public Desk()
         {
@@ -29,14 +30,28 @@ namespace Cards
             this.BackColor = Color.Green;
         }
 
+        private string SelectFolder()
+        {
+            var selectFolderDg = new FolderBrowserDialog();         
+            DialogResult result = selectFolderDg.ShowDialog();
+
+            if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(selectFolderDg.SelectedPath))
+            {
+                return selectFolderDg.SelectedPath;
+            }
+            return null;
+        }
+
         private void btnLoadCards_Click(object sender, EventArgs e)
         {
             folderPath = @"C:\Users\Brahmin\Downloads\Cards-master\Playing Cards\playing_card_images\face";
+
+            //folderPath = SelectFolder();
             fileNames = Directory.GetFiles(folderPath);
             PictureBox loadedCard = null;
 
             foreach (var fileName in fileNames)
-            {
+            {                             
                 loadedCard = new PictureBox()
                 {
                     Height = 100,
@@ -47,7 +62,39 @@ namespace Cards
                     Image = Image.FromFile(fileName)
                 };
             this.Controls.Add(loadedCard);
+            cardImages.Add(loadedCard);
+            loadedCard.Click += new EventHandler(Card_Click);
             }
+        }
+
+        private void btnStackCards_Click(object sender, EventArgs e)
+        {
+            int x = 100;
+            int y = 100;
+            foreach (var card in cardImages)
+            {
+                card.Location = new Point(x++, y++);
+            }
+        }
+
+        private void btnDeckCards_Click(object sender, EventArgs e)
+        {
+            int counter = 0;
+            for (int x = 1; x < 10; x++)
+            {
+                for (int y = 1; y < 7; y++)
+                {
+                    cardImages[counter].Location = new Point(x * 75, y * 105);
+                    counter++;
+                }
+            }
+        }
+
+        private void Card_Click(object sender, EventArgs e)
+        {
+            var card = (PictureBox)sender;
+            card.Location = new Point(0, 30);
+            card.BringToFront();
         }
     }
 }
