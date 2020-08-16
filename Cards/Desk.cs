@@ -49,7 +49,6 @@ namespace Cards
         {
             folderPath = @"C:\Users\Brahmin\Downloads\Cards-master\Playing Cards\playing_card_images\face";
 
-            //folderPath = SelectFolder();
             fileNames = Directory.GetFiles(folderPath);
             PictureBox loadedCard = null;
 
@@ -66,7 +65,7 @@ namespace Cards
                 };
                 this.Controls.Add(loadedCard);
                 cardImages.Add(loadedCard);
-                //loadedCard.Click += new EventHandler(Card_Click);
+                loadedCard.DoubleClick += new EventHandler(Card_DoubleClick);
                 loadedCard.MouseDown += new MouseEventHandler(Card_MouseDown);
                 loadedCard.MouseUp += new MouseEventHandler(Card_MouseUp);
                 loadedCard.MouseMove += new MouseEventHandler(Card_MouseMove);
@@ -96,11 +95,11 @@ namespace Cards
             }
         }
 
-        private void Card_Click(object sender, EventArgs e)
+        private void Card_DoubleClick(object sender, EventArgs e)
         {
-            var card = (PictureBox)sender;
-            card.Location = new Point(0, 30);
-            card.BringToFront();
+                var card = (PictureBox)sender;
+                card.Location = new Point(0, 30);
+                card.BringToFront();          
         }
 
         private void Card_MouseDown(object sender, MouseEventArgs e)
@@ -111,6 +110,7 @@ namespace Cards
                 mouseHold = true;
                 deltaX = e.X;
                 deltaY = e.Y;
+                card.BringToFront();
             }           
         }
 
@@ -129,8 +129,15 @@ namespace Cards
                 var card = (PictureBox)sender;
                 card.Top = e.Y + card.Top - deltaY;
                 card.Left = e.X + card.Left - deltaX;
-                card.BringToFront();
             }           
+        }
+
+        private void btnFlip_Click(object sender, EventArgs e)
+        {
+            foreach (var card in cardImages)
+            {
+                card.Image = Image.FromFile(@"C:\Users\Brahmin\Downloads\Cards-master\Playing Cards\playing_card_images\back\green_back.png");
+            }
         }
     }
 }

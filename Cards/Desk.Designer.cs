@@ -33,6 +33,7 @@
             this.btnLoadCards = new System.Windows.Forms.ToolStripButton();
             this.btnStackCards = new System.Windows.Forms.ToolStripButton();
             this.btnDeckCards = new System.Windows.Forms.ToolStripButton();
+            this.btnFlip = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -41,7 +42,8 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnLoadCards,
             this.btnStackCards,
-            this.btnDeckCards});
+            this.btnDeckCards,
+            this.btnFlip});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(800, 25);
@@ -78,6 +80,16 @@
             this.btnDeckCards.Text = "Deck";
             this.btnDeckCards.Click += new System.EventHandler(this.btnDeckCards_Click);
             // 
+            // btnFlip
+            // 
+            this.btnFlip.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnFlip.Image = ((System.Drawing.Image)(resources.GetObject("btnFlip.Image")));
+            this.btnFlip.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnFlip.Name = "btnFlip";
+            this.btnFlip.Size = new System.Drawing.Size(63, 22);
+            this.btnFlip.Text = "Flip Cards";
+            this.btnFlip.Click += new System.EventHandler(this.btnFlip_Click);
+            // 
             // Desk
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -99,6 +111,7 @@
         private System.Windows.Forms.ToolStripButton btnLoadCards;
         private System.Windows.Forms.ToolStripButton btnStackCards;
         private System.Windows.Forms.ToolStripButton btnDeckCards;
+        private System.Windows.Forms.ToolStripButton btnFlip;
     }
 }
 
