@@ -18,7 +18,9 @@ namespace Cards
         private string[] fileNames = null;
         private Random rand = new Random();
         private List<PictureBox> cardImages = new List<PictureBox>();
+        private List<string> cardFilePaths = new List<string>();
         bool mouseHold = false;
+        bool cardsFlipped = false;
         private int deltaX;
         private int deltaY;
 
@@ -53,7 +55,9 @@ namespace Cards
             PictureBox loadedCard = null;
 
             foreach (var fileName in fileNames)
-            {                             
+            {
+                cardFilePaths.Add(fileName);
+
                 loadedCard = new PictureBox()
                 {
                     Height = 100,
@@ -63,6 +67,7 @@ namespace Cards
                     Top = rand.Next(50, 300),
                     Image = Image.FromFile(fileName)
                 };
+
                 this.Controls.Add(loadedCard);
                 cardImages.Add(loadedCard);
                 loadedCard.DoubleClick += new EventHandler(Card_DoubleClick);
@@ -134,10 +139,27 @@ namespace Cards
 
         private void btnFlip_Click(object sender, EventArgs e)
         {
+            if (cardsFlipped)
+                ShowBack();
+            else
+                ShowFace();
+
+            cardsFlipped = !cardsFlipped;
+        }
+
+        private void ShowBack()
+        {
+            string BackImage = @"C:\Users\Brahmin\Downloads\Cards-master\Playing Cards\playing_card_images\back\green_back.png";
             foreach (var card in cardImages)
             {
-                card.Image = Image.FromFile(@"C:\Users\Brahmin\Downloads\Cards-master\Playing Cards\playing_card_images\back\green_back.png");
-            }
+                card.Image = Image.FromFile(BackImage);
+            }           
+        }
+
+        private void ShowFace()
+        {
+            for (int i = 0; i < 54; i++)
+                cardImages[i].Image = Image.FromFile(cardFilePaths[i]);
         }
     }
 }
